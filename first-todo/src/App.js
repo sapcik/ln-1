@@ -8,7 +8,7 @@ function App() {
 
     useEffect(() => {
         const fetchTodos = async () => {
-            const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+            const response = await fetch("https://jsonplaceholder.typicode.com/todos?_limit=10");
 
             setTodos(await response.json())
         };
@@ -16,9 +16,16 @@ function App() {
         fetchTodos();
     }, []);
 
+    const deleteTodo = index => {
+        setTodos(
+            todos.filter((value, arrIndex) => index !== arrIndex)
+        );
+    };
+
     const addTodo = title => {
-        const newTodos = [...todos, { title, completed: false }];
-        setTodos(newTodos);
+        setTodos(
+            [...todos, { title, completed: false }]
+        );
     };
 
     const completeTodo = index => {
@@ -42,6 +49,7 @@ function App() {
                     index={index}
                     todo={todo}
                     completeTodo={completeTodo}
+                    deleteTodo={deleteTodo}
                 />
             ))
             :

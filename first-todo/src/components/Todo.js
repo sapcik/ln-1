@@ -1,7 +1,7 @@
 import React from "react";
-import {Col, Row} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 
-const Todo = ({todo, index, completeTodo}) => (
+const Todo = ({todo, index, completeTodo, deleteTodo}) => (
     <Row>
         <Col xs={1}>
             <span onClick={() => completeTodo(index)} style={{cursor: 'pointer'}}>
@@ -9,6 +9,9 @@ const Todo = ({todo, index, completeTodo}) => (
             </span>
         </Col>
         <Col>{todo.title}</Col>
+        <Col xs={1}>
+            <Button variant="link" onClick={() => deleteTodo(index)}>Remove</Button>
+        </Col>
     </Row>
 );
 
