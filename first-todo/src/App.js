@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import {Container, Row, Col} from "react-bootstrap";
-import Todo from "./components/Todo"
-import FormTodo from "./components/FormTodo"
+import Todo from "./components/Todo";
+import FormTodo from "./components/FormTodo";
+import Pagination from "./components/Pagination";
 
 function App() {
     const [todos, setTodos] = useState([]);
+    const [perPage, setPerPage] = useState(10);
 
     useEffect(() => {
         const fetchTodos = async () => {
-            const response = await fetch("https://jsonplaceholder.typicode.com/todos?_limit=10");
+            const response = await fetch(`https://jsonplaceholder.typicode.com/todos?_limit=${perPage}`);
 
             setTodos(await response.json())
         };
 
         fetchTodos();
-    }, []);
+    }, [perPage]);
 
     const deleteTodo = index => {
         setTodos(
@@ -42,6 +44,7 @@ function App() {
             <hr/>
         </Col>
       </Row>
+        <Pagination perPage={perPage} setPerPage={setPerPage}/>
         {todos.length ?
             todos.map((todo, index) => (
                 <Todo
